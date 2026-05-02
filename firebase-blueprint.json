@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "Perfil de Usuario",
+      "description": "Información básica y preferencias del usuario.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["displayName", "createdAt"]
+    },
+    "Exercise": {
+      "title": "Ejercicio",
+      "description": "Catálogo de ejercicios disponibles.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["Pecho", "Espalda", "Piernas", "Hombros", "Brazos", "Core", "Cardio"] },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["name", "category"]
+    },
+    "Workout": {
+      "title": "Sesión de Entrenamiento",
+      "description": "Un registro de una sesión de gimnasio.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date-time" },
+        "duration": { "type": "number", "description": "Duración en minutos" },
+        "notes": { "type": "string" },
+        "totalVolume": { "type": "number" }
+      },
+      "required": ["date"]
+    },
+    "Set": {
+      "title": "Serie de Ejercicio",
+      "description": "Una serie individual dentro de un entrenamiento.",
+      "type": "object",
+      "properties": {
+        "workoutId": { "type": "string" },
+        "exerciseId": { "type": "string" },
+        "weight": { "type": "number" },
+        "reps": { "type": "number" },
+        "order": { "type": "number" }
+      },
+      "required": ["workoutId", "exerciseId", "weight", "reps"]
+    },
+    "Metric": {
+      "title": "Métrica Física",
+      "description": "Registro de peso corporal, grasa, etc.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date-time" },
+        "bodyWeight": { "type": "number" },
+        "bodyFat": { "type": "number" },
+        "photoUrl": { "type": "string" }
+      },
+      "required": ["date", "bodyWeight"]
+    },
+    "Goal": {
+      "title": "Objetivo",
+      "description": "Meta personal de progreso.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["Peso Corporal", "Ejercicio PR", "Frecuencia"] },
+        "targetValue": { "type": "number" },
+        "currentValue": { "type": "number" },
+        "deadline": { "type": "string", "format": "date" },
+        "exerciseId": { "type": "string" }
+      },
+      "required": ["type", "targetValue"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Datos maestros del usuario"
+    },
+    "users/{userId}/workouts": {
+      "schema": "Workout",
+      "description": "Colección de entrenamientos del usuario"
+    },
+    "users/{userId}/workouts/{workoutId}/sets": {
+      "schema": "Set",
+      "description": "Series realizadas en un entrenamiento específico"
+    },
+    "users/{userId}/metrics": {
+      "schema": "Metric",
+      "description": "Historial de métricas físicas y fotos"
+    },
+    "users/{userId}/goals": {
+      "schema": "Goal",
+      "description": "Objetivos personales de entrenamiento"
+    },
+    "exercises": {
+      "schema": "Exercise",
+      "description": "Base de datos global de ejercicios"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "FitTrack Pro",
+  "description": "Una aplicación avanzada para el seguimiento de entrenamientos, métricas físicas y progreso en el gimnasio con diseño Material Design.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "Workout Logging",
+    "Progress Charts",
+    "Metric Tracking",
+    "Goal Setting"
+  ]
+}
